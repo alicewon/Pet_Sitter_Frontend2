@@ -10,7 +10,7 @@ const ProfilePicture = (props) => (
 
     <Image className="profilepic" src={props.user[0].user_image} size='medium' circular />
     <Header className="profilename" as='h3' style={{ fontSize: '2em' }}>
-    {props.user[0].name}
+    {props.user[0]}
     </Header>
 
     </div>
@@ -23,7 +23,7 @@ const ProfilePicture = (props) => (
       <p>My Pets</p>
     </Divider>
 
-    <PetsContainer />
+    <PetsContainer user={props.user}/>
     <PetCard/>
   </>
 )

@@ -5,6 +5,7 @@ import NavBar from './NavBar'
 import LoginSignupContainer from  './LoginSignupContainer'
 import MyProfile from './MyProfile'
 import SignupForm from './SignupForm'
+
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const ownersURL = "http://localhost:3000/owners"
@@ -80,7 +81,15 @@ class App extends React.Component {
       }
     }, () => this.postOwner(owner))
   }
+ 
 
+    adduser = owner => {
+      this.setState(prevState => {
+        return {
+          owners: [...prevState.owners, owner]
+        }
+      }, () => this.postOwner(owner))
+    }
   postOwner = (owner) => {
     fetch(ownersURL, {
       method: "POST",
@@ -94,6 +103,24 @@ class App extends React.Component {
       //send to owner profile 
   }
 
+  
+  
+  renderOwnersProfile = (firstName) => {
+    console.log(firstName)
+    fetch(ownersURL)
+    .then(res => res.json())
+    .then(owners => console.log(owners))
+  }
+  onLogInUser = (state) => {
+    this.setState({...this.state, isLoggedIn: true})
+    console.log(state.name)
+    this.renderOwnersProfile(state.name)
+    // this.setState(prevState => {
+    //   return { o}
+    // })
+  }
+
+
 
 
 
@@ -105,14 +132,14 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <NavBar />{
+          <NavBar />
 
           <Route
             path="/"
             exact
             render={() => <HomepageLayout />}
-          />}
-                {
+          />
+                
            <Route
             path="/login"
             exact
@@ -120,27 +147,20 @@ class App extends React.Component {
             <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
           />}
         
-            {
+            
         <Route
           path="/signup"
           exact
           render={()=> <SignupForm onAddUser={this.addUser}/>}
         />}
         
-            {/* {
-        <Route
-          path="/signup"
-          exact
-          render={() => 
-          <LoginSignupContainer />}
-          />} */}
-        
+          
 
-          {
+          
         <Route
           path="/profile"
           exact
-          render={() => <MyProfile user={this.state.user}/>}
+          render={() => <MyProfile  user={this.state.user}/>}
         />
           }
 
