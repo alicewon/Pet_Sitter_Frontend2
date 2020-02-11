@@ -33,7 +33,14 @@ class App extends React.Component {
     this.state ={
       owners: [],
       isLoggedIn: false,
-      user: {}
+      
+      user: [{
+        id: 1, 
+        name: "Carrie", 
+        address: "657 Waters Mall", 
+        user_image: "https://picsum.photos/seed/jbmdqaufloldlkmoprrgfznagbhtfyapkhoflpvklyjbduohcq/250", 
+        background_image: "https://picsum.photos/seed/jbmdqaufloldlkmoprrgfznagbhtfyapkhoflpvklyjbduohcq/250"
+      }]
     }
   }
  
