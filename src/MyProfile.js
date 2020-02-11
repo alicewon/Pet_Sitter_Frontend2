@@ -3,13 +3,16 @@ import { Image, Header, Divider } from 'semantic-ui-react'
 import PetsContainer from './PetsContainer'
 import PetCard from './PetCard'
 
-const ProfilePicture = () => (
+const ProfilePicture = (props) => (
   <>
     <div className="profile-top-section">
+    {console.log(props.user[0])}
+
     <Image className="profilepic" src='https://smileinternationalmagazine.com/wp-content/uploads/2017/09/justin-bieber.jpg' size='medium' circular />
     <Header className="profilename" as='h3' style={{ fontSize: '2em' }}>
-      Justin B.
+    {/* {(props.user[0].name)} */}Justin B.
     </Header>
+
     </div>
 
     <Divider

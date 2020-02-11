@@ -28,11 +28,15 @@ const notesURL = "http://localhost:3000/notes"
 
 
 class App extends React.Component {
-  State = { 
-    owners: [],
-    isLoggedIn: false,
-    user: {}
+  constructor() {
+    super()
+    this.state ={
+      owners: [],
+      isLoggedIn: false,
+      user: {}
+    }
   }
+ 
   
   componentDidMount() {
     this.getAllOwners()
@@ -57,6 +61,7 @@ class App extends React.Component {
     let ownersfiltered = this.state.owners.filter(owner => owner.name == username)
 
     this.setState({isLoggedIn: true, user: ownersfiltered})
+    
   }
 
 
@@ -102,36 +107,35 @@ class App extends React.Component {
           />}
                 {
            <Route
-          path="/login"
-          exact
-          render={() => 
-          <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
+            path="/login"
+            exact
+            render={() => 
+            <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
           />}
-        
-            {
-        <Route
-        path="/signup"
-        exact
-        render={()=> <SignupForm onAddUser={this.addUser}/>}
-        />}
         
             {
         <Route
           path="/signup"
           exact
+          render={()=> <SignupForm onAddUser={this.addUser}/>}
+        />}
+        
+            {/* {
+        <Route
+          path="/signup"
+          exact
           render={() => 
           <LoginSignupContainer />}
-          />}
+          />} */}
         
 
           {
         <Route
-        path="/profile"
-        exact
-        render={() => <MyProfile />}
+          path="/profile"
+          exact
+          render={() => <MyProfile user={this.state.user}/>}
         />
           }
-      
 
         </Router>
       </div>

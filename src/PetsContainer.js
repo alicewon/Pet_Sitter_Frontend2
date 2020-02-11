@@ -12,7 +12,9 @@ class PetsContainer extends React.Component {
 
   render() {
     return(
-      <div className="ui grid container"></div>
+      <div className="ui grid container">
+        <button class="ui button">Add a Pet</button>
+      </div>
     )
   }
 

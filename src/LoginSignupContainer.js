@@ -12,6 +12,7 @@ import SignupForm from './SignupForm'
 
 //render either login or signup form based on which one was clicked in the navbar
 //testing notes feature
+//testing notes #2
 
 export default class LoginSignupContainer extends React.Component {
   render() {

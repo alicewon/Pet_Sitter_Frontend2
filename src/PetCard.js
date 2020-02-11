@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 
 
 const PetCard = () => (
@@ -20,6 +20,7 @@ const PetCard = () => (
             22 Friends
           </a>
         </Card.Content>
+        <button class="ui button">Edit Pet</button>
       </Card>
 )
 
