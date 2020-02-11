@@ -37,10 +37,35 @@ const notesURL = "http://localhost:3000/notes"
 
 
 class App extends React.Component {
-  State = { 
-  isLoggedIn: false,
-  User: {}
+
+  state = {
+    owners: [],
+    loggedIn: false,
+    user: {}
+
   }
+
+    adduser = owner => {
+      this.setState(prevState => {
+        return {
+          owners: [...prevState.owners, owner]
+        }
+      }, () => this.postOwner(owner))
+    }
+  postOwner = (owner) => {
+    fetch(ownersURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(owner)
+    }).then(res => res.json())
+      .then(data => console.log(data))
+      //send to owner profile 
+  }
+
+  
   
   renderOwnersProfile = (firstName) => {
     console.log(firstName)
@@ -58,33 +83,6 @@ class App extends React.Component {
   }
 
 
-  state = {
-    owners: [],
-    loggedIn: false
-
-  }
-
-  adduser = owner => {
-    this.setState(prevState => {
-      return {
-        owners: [...prevState.owners, owner]
-      }
-    }, () => this.postOwner(owner))
-  }
-
-  postOwner = (owner) => {
-    fetch(ownersURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(owner)
-    }).then(res => res.json())
-      .then(data => console.log(data))
-      //send to owner profile 
-  }
-
 
   handleOnLogIn = () => {
     console.log("ello mate")
@@ -94,44 +92,44 @@ class App extends React.Component {
     return (
       <div>
         <Router>
-          <NavBar />{
+          <NavBar />
 
           <Route
             path="/"
             exact
             render={() => <HomepageLayout />}
-          />}
-                {
+          />
+                
            <Route
           path="/login"
           exact
           render={() => 
           <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
-          />}
+          />
         
-            {
+            
         <Route
         path="/signup"
         exact
         render={()=> <SignupForm onAddUser={this.adduser}/>}
-        />}
+        />
         
-            {
+            
         <Route
           path="/signup"
           exact
           render={() => 
           <LoginSignupContainer />}
-          />}
+          />
         
 
-          {
+          
         <Route
         path="/profile"
         exact
         render={() => <MyProfile />}
         />
-          }
+          
       
 
         </Router>
