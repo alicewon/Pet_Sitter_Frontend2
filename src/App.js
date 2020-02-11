@@ -5,6 +5,7 @@ import NavBar from './NavBar'
 import LoginSignupContainer from  './LoginSignupContainer'
 import MyProfile from './MyProfile'
 import SignupForm from './SignupForm'
+
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const ownersURL = "http://localhost:3000/owners"
@@ -80,6 +81,7 @@ class App extends React.Component {
       }
     }, () => this.postOwner(owner))
   }
+ 
 
     adduser = owner => {
       this.setState(prevState => {
@@ -158,7 +160,7 @@ class App extends React.Component {
         <Route
           path="/profile"
           exact
-          render={() => <MyProfile user={this.state.user}/>}
+          render={() => <MyProfile  user={this.state.user}/>}
         />
           }
 
