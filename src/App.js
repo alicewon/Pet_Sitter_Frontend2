@@ -1,21 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-// import FixedMenuLayout from './FixedMenuLayout'
 import HomepageLayout from './HomepageLayout'
 import NavBar from './NavBar'
 import LoginSignupContainer from  './LoginSignupContainer'
 import MyProfile from './MyProfile'
 import SignupForm from './SignupForm'
-import LoginForm from './LoginForm'
 import { BrowserRouter as Router, Route } from "react-router-dom"
-
-// import { getQueriesForElement } from '@testing-library/react';
-
-import { getQueriesForElement } from '@testing-library/react';
-import PetCard from './PetCard'
-
-//state: isUserLogedIn: null
 
 const ownersURL = "http://localhost:3000/owners"
 const petsURL = "http://localhost:3000/pets"
@@ -36,13 +26,52 @@ const notesURL = "http://localhost:3000/notes"
 ////function logOutUser()
 
 
+
 class App extends React.Component {
+  constructor() {
+    super()
+    this.state ={
+      owners: [],
+      isLoggedIn: false,
+      user: {}
+    }
+  }
+ 
+  
+  componentDidMount() {
+    this.getAllOwners()
+  }
 
-  state = {
-    owners: [],
-    loggedIn: false,
-    user: {}
+  getAllOwners = () => {
+    fetch(ownersURL)
+    .then(res => res.json())
+    .then(owner => this.setState({ owners: owner}))
+  }
 
+  
+
+  onLogInUser = (username) => {
+    
+    console.log(username)
+    this.getAllOwners(username)
+    // this.setState(prevState => {
+    //   return { o}
+    // })
+
+    let ownersfiltered = this.state.owners.filter(owner => owner.name == username)
+
+    this.setState({isLoggedIn: true, user: ownersfiltered})
+    
+  }
+
+
+
+  addUser = owner => {
+    this.setState(prevState => {
+      return {
+        owners: [...prevState.owners, owner]
+      }
+    }, () => this.postOwner(owner))
   }
 
     adduser = owner => {
@@ -84,6 +113,8 @@ class App extends React.Component {
 
 
 
+
+
   handleOnLogIn = () => {
     console.log("ello mate")
   }
@@ -101,36 +132,28 @@ class App extends React.Component {
           />
                 
            <Route
-          path="/login"
-          exact
-          render={() => 
-          <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
-          />
-        
-            
-        <Route
-        path="/signup"
-        exact
-        render={()=> <SignupForm onAddUser={this.adduser}/>}
-        />
+            path="/login"
+            exact
+            render={() => 
+            <LoginSignupContainer onLogInUser={this.onLogInUser}/>}
+          />}
         
             
         <Route
           path="/signup"
           exact
-          render={() => 
-          <LoginSignupContainer />}
-          />
+          render={()=> <SignupForm onAddUser={this.addUser}/>}
+        />}
         
+          
 
           
         <Route
-        path="/profile"
-        exact
-        render={() => <MyProfile />}
+          path="/profile"
+          exact
+          render={() => <MyProfile user={this.state.user}/>}
         />
-          
-      
+          }
 
         </Router>
       </div>
