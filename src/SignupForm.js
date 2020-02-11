@@ -38,7 +38,7 @@ class SignupForm extends React.Component {
       </div>
       <div className="field">
         <label>Profile Image</label>
-        <input type="text" name="image" value={this.state.image} onChange={this.handleChange} placeholder="Image" />
+        <input type="text" name="user_image" value={this.state.user_image} onChange={this.handleChange} placeholder="Image" />
       </div>
       <div className="field">
         <label>Background Image</label>
